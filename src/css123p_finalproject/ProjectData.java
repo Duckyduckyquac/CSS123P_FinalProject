@@ -5,16 +5,9 @@
 package css123p_finalproject;
 
 /**
- *
+ * Author: Group 3
  * 
  */
-public class CSS123P_finalProject {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+public class ProjectData {
+    //logic and helper functions will go here
 }
