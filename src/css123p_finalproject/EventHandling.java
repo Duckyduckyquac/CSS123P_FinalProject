@@ -6,7 +6,7 @@ package css123p_finalproject;
 
 /**
  *
- * @author Jacob
+ * Author: Group 3
  */
 public class EventHandling {
     

@@ -10,6 +10,8 @@ package css123p_finalproject;
  */
 public class Main {
     public static void main(String[] args){
+        JavaSwingUtilities.invokeLater(new Runnable){
         
+    }
     }
 }
