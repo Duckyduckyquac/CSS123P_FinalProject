@@ -49,14 +49,14 @@ class Player{
     -int stamina
     
     +Player(int hp, int defense, int atk, int stamina)
-    +getHp()
-    +setHp()
-    +getDefense()
-    +setDefense()
-    +getAtk()
-    +setAtk()
-    +getStamina()
-    +setStamina()
+    +getHp():int
+    +setHp():void
+    +getDefense():int
+    +setDefense():void
+    +getAtk():int
+    +setAtk():void
+    +getStamina():int
+    +setStamina():void
     
 }
 Movement<|--Player:implements
