@@ -1,4 +1,3 @@
-```mermaid
 ---
 config:
   theme: mc
@@ -6,78 +5,71 @@ config:
 ---
 classDiagram
 
-class ApplicationFrame{
-    +ApplicationFrame()
-}
-JFrame<|--ApplicationFrame:extends
-
-class Main{
+class Main {
     +main(String[] args)$ void
-    -initilizeApplicationFrame()$ void
-}
-Main ..> ApplicationFrame : initiates
-class GameEnvironment{
-    
-}
-class Physics{
-   - int Collision
-   - int Movement
+    -initializeApplicationFrame()$ void
 }
 
-class MapPhysics {
-    - array Coordinates
+class Controller {
+    - GameEnvironment gameEnv
+    - View view
+    + start() void
 }
 
-class GameMathComputation{
-
+class GameEnvironment {
+    - Player player
+    - MapData mapData
+    + update() void
 }
 
-MapPhysics --|> Physics: inherits
-View --|> JFrame: uses this to render
-EventHandling --|> GameEnvironment: handles events
-Controller --|> EventHandling: implements
-Main --|> Controller: initiates
-GameEnvironment --|> JFrame: has
-Controller --|> GameEnvironment: Controls
-GameEnvironment --* Player: has 
-GameEnvironment --|> Physics: implements
-GameEnvironment --|> GameMathComputation: implements
-class Player{
-    -int hp
-    -int defense
-    -int atk
-    -int stamina
-    
-    +Player(int hp, int defense, int atk, int stamina)
-    +getHp():int
-    +setHp():void
-    +getDefense():int
-    +setDefense():void
-    +getAtk():int
-    +setAtk():void
-    +getStamina():int
-    +setStamina():void
-    
+class Player {
+    - int hp
+    - int defense
+    - int atk
+    - int stamina
+    - int x, y
+    - int velocityX, velocityY
+    + Player(int hp, int defense, int atk, int stamina)
+    + move() void
 }
-Movement<|--Player:implements
-class Movement{
 
+class Weapon {
+    - int damage
 }
-Weapon*--Player: has a
-class Weapon{
-    
-}
-class Controller{
 
+class Physics {
+    <<utility>>
+    + checkCollision(Rectangle r1, Rectangle r2)$ boolean
+    + applyGravity(Player p)$ void
 }
-class EventHandling{
 
+class GameMathComputation {
+    <<utility>>
+    + calculateDistance(int x1, int y1, int x2, int y2)$ double
 }
-class ProjectData{
 
+class ApplicationFrame {
+    + ApplicationFrame()
 }
 
 class View {
-
+    + render(GameEnvironment env) void
 }
-```
+
+class EventHandling {
+    + handleInput() void
+}
+
+class ProjectData {
+    - String config
+}
+
+Main ..> Controller : creates
+Controller --> GameEnvironment : controls
+Controller --> View : updates
+ApplicationFrame <|-- View : extends (or renders via)
+GameEnvironment *-- Player : contains
+Player *-- Weapon : has a
+GameEnvironment ..> Physics : uses calculations
+GameEnvironment ..> GameMathComputation : uses math
+Controller --> EventHandling : listens to inputs
