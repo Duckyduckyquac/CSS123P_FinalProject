@@ -1,5 +1,5 @@
 
-package css123p_finalproject;
+package css123p_finalproject.controller;
 
 /**
  * Author: Group 3
