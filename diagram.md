@@ -35,9 +35,45 @@ class Player {
 }
 
 class Weapon {
-    - int damage
+    # int damage
+    # int ammoCapacity
+    # int range
+    + Weapon(int damage, int ammoCapacity, int range)
+    + fire() void
+    + reload() void
 }
 
+class RifleSubclass {
+    + fire() void
+}
+
+class SMGSubclass {
+    + fire() void
+}
+
+class SniperSubclass {
+    + fire() void
+}
+
+class ShotgunSubclass {
+    + fire() void
+}
+
+class RocketSubclass {
+    + fire() void
+}
+
+class RailgunSubclass {
+    + fire() void
+}
+
+%% Inheritance relationships
+Weapon <|-- RifleSubclass
+Weapon <|-- SMGSubclass
+Weapon <|-- SniperSubclass
+Weapon <|-- ShotgunSubclass
+Weapon <|-- RocketSubclass
+Weapon <|-- RailgunSubclass
 class Physics {
     <<utility>>
     + checkCollision(Rectangle r1, Rectangle r2)$ boolean
