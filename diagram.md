@@ -68,12 +68,12 @@ class RailgunSubclass {
 }
 
 %% Inheritance relationships
-Weapon <|-- RifleSubclass
-Weapon <|-- SMGSubclass
-Weapon <|-- SniperSubclass
-Weapon <|-- ShotgunSubclass
-Weapon <|-- RocketSubclass
-Weapon <|-- RailgunSubclass
+Weapon <|-- RifleSubclass:extends
+Weapon <|-- SMGSubclass:extends
+Weapon <|-- SniperSubclass:extends
+Weapon <|-- ShotgunSubclass:extends
+Weapon <|-- RocketSubclass:extends
+Weapon <|-- RailgunSubclass:extends
 class Physics {
     <<utility>>
     + checkCollision(Rectangle r1, Rectangle r2)$ boolean
