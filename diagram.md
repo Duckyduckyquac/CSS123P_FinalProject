@@ -1,3 +1,4 @@
+```mermaid
 ---
 config:
   theme: mc
@@ -73,3 +74,4 @@ Player *-- Weapon : has a
 GameEnvironment ..> Physics : uses calculations
 GameEnvironment ..> GameMathComputation : uses math
 Controller --> EventHandling : listens to inputs
+```
