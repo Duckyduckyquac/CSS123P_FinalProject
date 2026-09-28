@@ -14,7 +14,11 @@ class Main {
 class Controller {
     - GameEnvironment gameEnv
     - View view
+    - EventHandling eventHandling
     + start() void
+    + handleMainMenu() void
+    + handleLevelSelection() void
+    + handleGameplay() void
 }
 
 class GameEnvironment {
@@ -101,7 +105,11 @@ class ApplicationFrame {
 }
 
 class View {
-    + render(GameEnvironment env) void
+    - ApplicationFrame frame
+    + showMainMenu() void
+    + showLevelSelection() void
+    + showLevel(GameEnvironment env) void
+    - showPlayerUI(Graphics g, Player player) void
 }
 
 class EventHandling {
@@ -115,7 +123,7 @@ class ProjectData {
 %% Relationships
 Main ..> Controller : creates
 Controller --> GameEnvironment : controls
-Controller --> View : updates
+Controller --> View : invokes screens
 ApplicationFrame <|-- View : extends
 GameEnvironment *-- Player : contains
 GameEnvironment *-- Enemy : contains multiple
@@ -131,5 +139,5 @@ Enemy <|-- Skeleton
 Enemy <|-- Spider
 GameEnvironment ..> Physics : uses
 GameEnvironment ..> GameMathComputation : uses
-Controller --> EventHandling : listens to inputs
+Controller --> EventHandling : manages inputs
 ```
