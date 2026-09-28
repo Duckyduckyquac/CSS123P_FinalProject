@@ -24,6 +24,7 @@ class Controller {
 class GameEnvironment {
     - Player player
     - List~Enemy~ enemies
+    - List~Projectile~ projectiles
     - MapData mapData
     + update() void
 }
@@ -41,31 +42,40 @@ class Player {
 class Weapon {
     # int damage
     # int ammoCapacity
-    + fire() void
+    + fire() Projectile
 }
 
 class RifleSubclass {
-    + fire() void
+    + fire() Projectile
 }
 
 class SMGSubclass {
-    + fire() void
+    + fire() Projectile
 }
 
 class SniperSubclass {
-    + fire() void
+    + fire() Projectile
 }
 
 class ShotgunSubclass {
-    + fire() void
+    + fire() Projectile
 }
 
 class RocketSubclass {
-    + fire() void
+    + fire() Projectile
 }
 
 class RailgunSubclass {
-    + fire() void
+    + fire() Projectile
+}
+
+class Projectile {
+    - int x, y
+    - int velocityX, velocityY
+    - int damage
+    + Projectile(int x, int y, int vx, int vy, int damage)
+    + update() void
+    + getBounds() Rectangle
 }
 
 class Enemy {
@@ -127,7 +137,9 @@ Controller --> View : invokes screens
 ApplicationFrame <|-- View : extends
 GameEnvironment *-- Player : contains
 GameEnvironment *-- Enemy : contains multiple
+GameEnvironment *-- Projectile : manages active
 Player *-- Weapon : equips
+Weapon ..> Projectile : spawns
 Weapon <|-- RifleSubclass
 Weapon <|-- SMGSubclass
 Weapon <|-- SniperSubclass
