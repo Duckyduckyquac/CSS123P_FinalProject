@@ -19,6 +19,7 @@ class Controller {
 
 class GameEnvironment {
     - Player player
+    - List~Enemy~ enemies
     - MapData mapData
     + update() void
 }
@@ -29,7 +30,6 @@ class Player {
     - int atk
     - int stamina
     - int x, y
-    - int velocityX, velocityY
     + Player(int hp, int defense, int atk, int stamina)
     + move() void
 }
@@ -37,10 +37,7 @@ class Player {
 class Weapon {
     # int damage
     # int ammoCapacity
-    # int range
-    + Weapon(int damage, int ammoCapacity, int range)
     + fire() void
-    + reload() void
 }
 
 class RifleSubclass {
@@ -67,17 +64,31 @@ class RailgunSubclass {
     + fire() void
 }
 
-%% Inheritance relationships
-Weapon <|-- RifleSubclass:extends
-Weapon <|-- SMGSubclass:extends
-Weapon <|-- SniperSubclass:extends
-Weapon <|-- ShotgunSubclass:extends
-Weapon <|-- RocketSubclass:extends
-Weapon <|-- RailgunSubclass:extends
+class Enemy {
+    # int hp
+    # int defense
+    # int atk
+    # int stamina
+    + Enemy(int hp, int defense, int atk, int stamina)
+    + attack() void
+    + takeDamage(int amount) void
+}
+
+class Goblin {
+    + attack() void
+}
+
+class Skeleton {
+    + attack() void
+}
+
+class Spider {
+    + attack() void
+}
+
 class Physics {
     <<utility>>
     + checkCollision(Rectangle r1, Rectangle r2)$ boolean
-    + applyGravity(Player p)$ void
 }
 
 class GameMathComputation {
@@ -101,13 +112,24 @@ class ProjectData {
     - String config
 }
 
+%% Relationships
 Main ..> Controller : creates
 Controller --> GameEnvironment : controls
 Controller --> View : updates
-ApplicationFrame <|-- View : extends (or renders via)
+ApplicationFrame <|-- View : extends
 GameEnvironment *-- Player : contains
-Player *-- Weapon : has a
-GameEnvironment ..> Physics : uses calculations
-GameEnvironment ..> GameMathComputation : uses math
+GameEnvironment *-- Enemy : contains multiple
+Player *-- Weapon : equips
+Weapon <|-- RifleSubclass
+Weapon <|-- SMGSubclass
+Weapon <|-- SniperSubclass
+Weapon <|-- ShotgunSubclass
+Weapon <|-- RocketSubclass
+Weapon <|-- RailgunSubclass
+Enemy <|-- Goblin
+Enemy <|-- Skeleton
+Enemy <|-- Spider
+GameEnvironment ..> Physics : uses
+GameEnvironment ..> GameMathComputation : uses
 Controller --> EventHandling : listens to inputs
 ```
