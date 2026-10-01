@@ -1,4 +1,3 @@
-```mermaid
 ---
 config:
   theme: mc
@@ -35,38 +34,40 @@ class Player {
     - int atk
     - int stamina
     - int x, y
+    - Weapon equippedWeapon
     + Player(int hp, int defense, int atk, int stamina)
     + move() void
+    + attack() void
 }
 
 class Weapon {
     # int damage
     # int ammoCapacity
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class RifleSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class SMGSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class SniperSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class ShotgunSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class RocketSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class RailgunSubclass {
-    + fire() Projectile
+    + fire(int playerAtk) Projectile
 }
 
 class Projectile {
@@ -115,7 +116,6 @@ class ApplicationFrame {
 }
 
 class View {
-    - ApplicationFrame frame
     + showMainMenu() void
     + showLevelSelection() void
     + showLevel(GameEnvironment env) void
@@ -138,7 +138,7 @@ ApplicationFrame <|-- View : extends
 GameEnvironment *-- Player : contains
 GameEnvironment *-- Enemy : contains multiple
 GameEnvironment *-- Projectile : manages active
-Player --* Weapon : equips
+Player o-- Weapon : equips
 Weapon ..> Projectile : spawns
 Weapon <|-- RifleSubclass
 Weapon <|-- SMGSubclass
@@ -152,4 +152,3 @@ Enemy <|-- Spider
 GameEnvironment ..> Physics : uses
 GameEnvironment ..> GameMathComputation : uses
 Controller --> EventHandling : manages inputs
-```
