@@ -4,11 +4,11 @@
  */
 package css123p_finalproject.model;
 
-import .abstractions.Stats;
+import css123p_finalproject.model.abstractions.Stats;
 
 /**
  *
- * @author Jacob
+ * @author Group 3
  */
 
 
@@ -19,50 +19,51 @@ public class Player extends Stats {
     private int defense = 0;
     private int stamina = 0;
     
-    public Player(int hp, int defense, int atk, int stamina){
-
-        this.hp = hp;
-        this.defense = defense;
-        this.atk = atk;
-        this.stamina = stamina;
+    @Override
+    public void Stats(int HP, int ATK, int DEF, int STAMINA) {
+        this.setHP(HP);
+        this.setATK(ATK);
+        this.setDEF(DEF);
+        this.setSTAM(STAMINA);
     }
 
-    @override
+    @Override
     public int getHP(){
         return this.hp;
     }
-
-    @override
+    
+    @Override
     public void setHP(int hp){
         this.hp = hp;
     }
-
-    @override
+    
+    @Override
     public int getDEF(){
         return this.defense;
     }
 
-    @override
+    @Override
     public void setDEF(int defense){
         this.defense = defense;
     }
 
-    @override
-    public int getAtk(){
+    @Override
+    public int getATK(){
         return this.atk;
     }
 
-    @override
+    @Override
     public void setATK(int atk){
         this.atk = atk;
     }
-
-    @override
-    public int getStAMINA(){
+    
+    @Override
+    public int getStAM(){
         return this.stamina;
     }
 
-    public void setSTAMINA(int stamina){
+    @Override
+    public void setSTAM(int stamina){
         this.stamina = stamina;
     }
     
