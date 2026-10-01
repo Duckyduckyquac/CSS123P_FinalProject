@@ -11,6 +11,10 @@ import css123p_finalproject.model.abstractions.Stats;
  * @author Group 3
  */
 
+interface PlayerAttack {
+    void execute(Player player);
+}
+
 
 public class Player extends Stats {
 
