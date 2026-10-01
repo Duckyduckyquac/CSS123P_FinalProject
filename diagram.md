@@ -1,4 +1,5 @@
----
+``` mermaid
+ ---
 config:
   theme: mc
   layout: dagre
@@ -152,3 +153,4 @@ Enemy <|-- Spider
 GameEnvironment ..> Physics : uses
 GameEnvironment ..> GameMathComputation : uses
 Controller --> EventHandling : manages inputs
+```
