@@ -138,7 +138,7 @@ ApplicationFrame <|-- View : extends
 GameEnvironment *-- Player : contains
 GameEnvironment *-- Enemy : contains multiple
 GameEnvironment *-- Projectile : manages active
-Player *-- Weapon : equips
+Player --* Weapon : equips
 Weapon ..> Projectile : spawns
 Weapon <|-- RifleSubclass
 Weapon <|-- SMGSubclass
