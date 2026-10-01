@@ -1,5 +1,9 @@
 package css123p_finalproject.view;
 
+import javax.swing.*;  
+import java.awt.event.*;
+import java.awt.*; 
+
 /**
  * Author: Group 3
  *
@@ -22,6 +26,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -37,6 +42,24 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
+
+        JFrame frame = new JFrame("");
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.setSize(500, 400);
+        
+        frame.setLocationRelativeTo(null);
+
+        frame.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent key) {
+                if (key.getKeyCode() == KeyEvent.VK_UP) {
+
+                }
+            }
+        })
+        
+        frame.setVisible(true);
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
