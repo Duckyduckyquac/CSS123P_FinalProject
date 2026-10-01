@@ -1,9 +1,8 @@
 ``` mermaid
- ---
+
 config:
   theme: mc
   layout: dagre
----
 classDiagram
 
 class Main {
