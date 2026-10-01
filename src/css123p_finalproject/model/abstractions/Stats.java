@@ -1,24 +1,33 @@
 package css123p_finalproject.model.abstractions;
 
-abstract class Stats {
+public abstract class Stats {
     int HP;
     int ATK;
     int DEF;
     int STAMINA;
 
-    abstract int getHP();
+    public void Stats(int HP, int ATK, int DEF, int STAMINA) {
+        this.HP = HP;
+        this.ATK = ATK;
+        this.DEF = DEF;
+        this.STAMINA = STAMINA;
+    }
 
-    abstract getATK();
+    public abstract int getHP();
 
-    abstract getDEF();
+    public abstract int getATK();
 
-    abstract getSTAMINA();
+    public abstract int getDEF();
 
-    abstract setHP();
+    public abstract int getSTAM();
 
-    abstract setATK();
+    public abstract void setHP(int HP);
 
-    abstract setDEF();
+    public abstract void setATK(int ATK);
 
-    abstract setSTAMINA();
+    public abstract void setDEF(int DEF);
+
+    public abstract void setSTAM(int STAMINA);
+    
 }
+
