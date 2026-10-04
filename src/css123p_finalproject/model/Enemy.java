@@ -32,7 +32,7 @@ class GoblinDodge implements EnemyDefense {
     
 }
 
-public class EnemySpawn extends Stats {
+public class Enemy extends Stats {
 
     public Enemy(String Type, int HP, int ATK, int DEF, int EXP) {
         super(HP, ATK, DEF, EXP);
@@ -45,4 +45,5 @@ public class EnemySpawn extends Stats {
         Enemy skeleton = new Enemy("Skeleton", 100, 35, 15, 150);
         Enemy slime = new Enemy("Slime", 50, 10, 5, 100);
     }
+
 }

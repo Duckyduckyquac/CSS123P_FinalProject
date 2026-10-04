@@ -18,10 +18,14 @@ interface PlayerAttack {
 
 public class Player extends Stats {
 
-    private int hp = 0;
-    private int atk = 0;
-    private int defense = 0;
-    private int stamina = 0;
+    public double HP;
+    public double ATK;
+    public double MAXHP;
+    public double BASEDMG;
+    public double DMGBOOST;
+    public double SPEED;
+    public double DEF;
+    public double STAMINA;
     
     @Override
     public void Stats(int HP, int ATK, int DEF, int STAMINA) {
