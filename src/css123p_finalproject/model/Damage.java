@@ -4,16 +4,43 @@ import css123p_finalproject.model.weapons;
 
 public class Damage {
     
-    boolean DmgMultiplied = false;
-    boolean DmgReduced = false;
+    private double DmgBoost = 0.0;
+    private double DmgReduction = 0.0;
+    private double CurrentDmg = 0.0;
     
-    Damage(boolean Dmg, boolean DmgMultiplier, boolean DmgReduced) {
+    void Damage(double Dmg, double DmgBoost, double DmgReduction) {
 
-        if (DmgMultiplier == true) {
-            this.DmgMultiplied = Dmg
+        if (Dmg == 0) {
+            return; 
         }
 
-    };
+        this.DmgBoosted = Dmg * DmgBoosT;
+        this.DmgReduction = DmgReduction;
+        this.CurrentDmg = this.DmgBoost - DmgReduction;
+    }
+ 
+    public double InflictDmg() {
+        return this.CurrentDmg;
+    }
 
-    public float CalcDmg()
+    public void ReduceBattleDmg(double DmgReduction) {
+        this.CurrentDmg = this.CurrentDmg - (this.CurrentDmg / DmgReduction);
+    }
+
+    public double ReduceStatsDmg(double DmgReduction) {
+        this.CurrentDmg = this.CurrentDmg - (this.CurrentDmg - DmgReduction);
+        this.DmgReduced = DmgReduction;
+        return this.CurrentDmg;
+    }
+
+    public void BoostBattleDmg(double DmgBoost) {
+        this.CurrentDmg = this.CurrentDmg + (this.CurrentDmg / DmgBoost); 
+    }
+
+    public void BoostStatsDmg(double DmgBoost) {
+        this.CurrentDmg = this.CurrentDmg + (this.CurrentDmg / DmgBoost);
+        this.DmgBoosted = DmgBoost;
+        return this.CurrentDmg; 
+    }
+
 };
