@@ -1,13 +1,12 @@
 package css123p_finalproject.tests;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+//import org.junit.jupiter.api.*;
+//import static org.junit.jupiter.api.Assertions.*;
+
+//====
+// libriares are currently not installed
+//====
 
 public class physics_test {
     
-    @Test
-    public void dummyTest() {
-        // Forces the test runner to pass so the build doesn't fail
-        assertTrue(true);
-    }
 }
