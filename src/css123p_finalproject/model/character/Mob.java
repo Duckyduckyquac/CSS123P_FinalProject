@@ -1,115 +1,84 @@
 package css123p_finalproject.model.character;
 
-import javax.imageio.ImageIO;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import css123p_finalproject.model.animations.*;
+import javax.imageio.ImageIO;
 
 public class Mob {
-
     private int x, y;
     private int speed;
     private int health;
-    
-    // Time tracker for our math formulas
-    private long initTime = System.currentTimeMillis();
-    
-    // The Visual Sprite
+    public long lastAttackTime = 0;
     private BufferedImage sprite;
+    
+    private int width = 64;
+    private int height = 64;
 
-    public Mob(String spritePath, int startX, int startY, int speed, int health) {
+    public Mob(String shortPath, int startX, int startY, int speed, int health) {
         this.x = startX;
         this.y = startY;
         this.speed = speed;
         this.health = health;
-        
+
         try {
-            URL imgUrl = getClass().getResource(spritePath);
-            if (imgUrl != null) {
-                this.sprite = ImageIO.read(imgUrl);
+            // Attempt 1: Read raw file from the src folder (Bypasses the NetBeans compiler)
+            java.io.File file = new java.io.File("src/css123p_finalproject/model/character/sprites/" + shortPath);
+            if (file.exists()) {
+                this.sprite = ImageIO.read(file);
             } else {
-                System.err.println("Could not find sprite at: " + spritePath);
+                // Attempt 2: Read from the compiled build folder (If IDE shifted the working directory)
+                java.net.URL url = getClass().getResource("/css123p_finalproject/model/character/sprites/" + shortPath);
+                if (url != null) {
+                    this.sprite = ImageIO.read(url);
+                } else {
+                    System.err.println("Could not find image at either location for: " + shortPath);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Failed to load image: " + shortPath);
         }
     }
+    
+    // Movement Logic
+    public int getX() { return this.x; }
+    public int getHealth() { return this.health; }
+    public int getWidth() { return this.width; } 
 
-    private void execAtkMode() {
-        AttackMode attack = new AttackMode();
+    public void moveLeft() { this.x -= this.speed; }
+    public void moveRight() { this.x += this.speed; }
+    
+    public int getY() { return this.y; }
+    public int getHeight() { return this.height; }
+
+    public void moveUp() { this.y -= this.speed; }
+    public void moveDown() { this.y += this.speed; }
+    
+    // Used for collision physics to push the mob without overriding speed
+    public void adjustPosition(int dx, int dy) {
+        this.x += dx;
+        this.y += dy;
     }
 
-    private void execIdleMode() {
-        IdleMode idle = new IdleMode();
+    public void takeDamage(int amount) {
+        this.health -= amount;
+        if (this.health < 0) this.health = 0;
     }
 
-    private void execWalk() {
-        Walk walk = new Walk();
-    }
-
-    private void execRun() {
-        Run run = new Run();
-    }
-
-    private void execSwing() {
-        SwordSwing swing = new SwordSwing();
-    }
-
-    private void execFire() {
-        FireGun fire = new FireGun("dummy_path");
-    }
-
-    public void updateMovement(String execAnimation) {
-        switch (execAnimation) {
-            case "Idle":
-                this.execIdleMode();
-                break;
-            case "Attack":
-                this.execAtkMode();
-                break;
-            case "Walk":
-                this.execWalk();
-                break;
-            case "Run":
-                this.execRun();
-                break;
-            case "Swing":
-                this.execSwing();
-                break;
-            case "Fire":
-                this.execFire();
-                break;
+    public void draw(Graphics2D g2d) {
+        if (this.sprite != null) {
+            // Draws the image explicitly scaled to 64x64
+            g2d.drawImage(this.sprite, this.x, this.y, this.width, this.height, null);
+        } else {
+            g2d.setColor(this.speed > 0 ? Color.BLUE : Color.RED);
+            g2d.fillRect(this.x, this.y, this.width, this.height);
         }
-    }
-
-    // Drawing logic using Java Swing/AWT, filled with Math Formulas
-    private void draw(Graphics2D g2d) {
-        if (sprite != null) {
-            // Math Formula 1: Calculate elapsed time as a continuous double (T = Δt / 1000)
-            double time = (System.currentTimeMillis() - initTime) / 1000.0;
-
-            // Math Formula 2 & 3: Trigonometry for offset limits (Amplitude * sin(Frequency * T))
-            // Creates a smooth "breathing" or "floating" bobbing effect
-            int mathOffsetX = (int) (Math.cos(time * 2.0) * 4.0); 
-            int mathOffsetY = (int) (Math.sin(time * 4.0) * 8.0); 
-
-            // Math Formula 4 & 5: Algebraic center calculation (Center = Position + Offset + (Dimension / 2))
-            double centerX = x + mathOffsetX + (sprite.getWidth() / 2.0);
-            double centerY = y + mathOffsetY + (sprite.getHeight() / 2.0);
-
-            // Math Formula 6: Oscillating rotation angle formula (Angle = maxRadians * sin(T))
-            double rotationAngle = (Math.PI / 32) * Math.sin(time * 3.0);
-
-            // Apply mathematical rotation to the graphics context
-            g2d.rotate(rotationAngle, centerX, centerY);
-            
-            // Draw the sprite applying our mathematical X and Y offsets
-            g2d.drawImage(sprite, x + mathOffsetX, y + mathOffsetY, null);
-            
-            // Reverse the mathematical rotation using its inverse so it doesn't break the rest of your game canvas
-            g2d.rotate(-rotationAngle, centerX, centerY);
-        }
+        
+        // The green hitbox overlay
+        g2d.setColor(Color.GREEN);
+        g2d.drawRect(this.x, this.y, this.width, this.height);
+        
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("HP: " + this.health, this.x, this.y - 10);
     }
 }

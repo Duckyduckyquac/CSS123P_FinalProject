@@ -26,7 +26,8 @@ public class Main {
     }
     private static void initializeApplicationFrame(){
 
-        new GameFrame();
+        GameFrame frame = new GameFrame();
+        frame.setVisible(true);
         JButton ExitButton = new JButton();
 
     }
