@@ -2,13 +2,11 @@ package css123p_finalproject.model.weapons;
 
 public class Gun {
     
-    str
+    private String gunName;
 
-    Gun() {}
+    public Gun() {}
 
-    public void SetGun(string GunChoice) {
-
+    public void SetGun(String GunChoice) {
+        this.gunName = GunChoice;
     }
-    
-
 }

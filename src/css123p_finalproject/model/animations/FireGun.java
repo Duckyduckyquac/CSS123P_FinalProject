@@ -1,27 +1,23 @@
 package css123p_finalproject.model.animations;
 
-import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
 
 public class FireGun {
 
-    string gunPath;
+    // Fixed: 'String' must be capitalized in Java
+    String gunPath;
 
-    FireGun(string gunPath) {
+    public FireGun(String gunPath) {
         this.gunPath = gunPath;
     }
 
     private BufferedImage BarrelMovement() {
-
+        // Fixed: Added dummy return to satisfy the compiler
+        return null;
     }
 
     private BufferedImage MagazineReload() {
-        
+        // Fixed: Added dummy return to satisfy the compiler
+        return null; 
     }
-
-
 }

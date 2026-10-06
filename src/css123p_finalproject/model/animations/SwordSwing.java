@@ -1,5 +1,5 @@
 package css123p_finalproject.model.animations;
 
 public class SwordSwing {
-    SwordSwing()
+    public SwordSwing() {}
 }

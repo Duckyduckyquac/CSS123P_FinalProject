@@ -58,7 +58,7 @@ public class PlayerTwo {
     }
 
     private void execFire() {
-        FireGun fire = new FireGun();
+        FireGun fire = new FireGun("dummy_path");
     }
 
     public void updateMovement(String execAnimation) {

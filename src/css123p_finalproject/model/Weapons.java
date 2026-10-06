@@ -1,11 +1,8 @@
 package css123p_finalproject.model;
 
-public 
+public class Weapons {
 
-public class Weapon {
-
-    Weapon() {
-
+    public Weapons() {
+        // Initialization logic for base weapons goes here
     }
-
 }

@@ -4,7 +4,7 @@
  */
 package css123p_finalproject.model;
 
-import css123p_finalproject.model.abstractions.Stats;
+import css123p_finalproject.model.Stats;
 
 /**
  *
@@ -15,64 +15,56 @@ interface PlayerAttack {
     void execute(Player player);
 }
 
-
 public class Player extends Stats {
 
-    public double HP;
-    public double ATK;
-    public double MAXHP;
     public double BASEDMG;
     public double DMGBOOST;
     public double SPEED;
-    public double DEF;
-    public double STAMINA;
+    public double MAXHP;
     
-    @Override
-    public void Stats(int HP, int ATK, int DEF, int STAMINA) {
-        this.setHP(HP);
-        this.setATK(ATK);
-        this.setDEF(DEF);
-        this.setSTAM(STAMINA);
+    // Fixed: Must call super() to initialize the parent Stats class
+    public Player(int HP, int ATK, int DEF, int STAMINA) {
+        super(HP, ATK, DEF, STAMINA);
+        this.MAXHP = HP;
     }
 
     @Override
     public int getHP(){
-        return this.hp;
+        return this.HP;
     }
     
     @Override
     public void setHP(int hp){
-        this.hp = hp;
+        this.HP = hp;
     }
     
     @Override
     public int getDEF(){
-        return this.defense;
+        return this.DEF;
     }
 
     @Override
     public void setDEF(int defense){
-        this.defense = defense;
+        this.DEF = defense;
     }
 
     @Override
     public int getATK(){
-        return this.atk;
+        return this.ATK;
     }
 
     @Override
     public void setATK(int atk){
-        this.atk = atk;
+        this.ATK = atk;
     }
     
     @Override
-    public int getStAM(){
-        return this.stamina;
+    public int getSTAM(){
+        return this.STAMINA;
     }
 
     @Override
     public void setSTAM(int stamina){
-        this.stamina = stamina;
+        this.STAMINA = stamina;
     }
-    
 }
