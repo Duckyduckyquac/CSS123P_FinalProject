@@ -3,12 +3,17 @@ package css123p_finalproject.model;
 import css123p_finalproject.model.weapons.Sword;
 import css123p_finalproject.model.weapons.Gun;
 import css123p_finalproject.model.weapons.Staff;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 public class Player extends Stats {
     private double x, y;
     private int width = 64;
     private int height = 64;
+     private BufferedImage sprite;
 
     public double SPEED;
     public double MAXHP;
@@ -22,6 +27,17 @@ public class Player extends Stats {
         this.x = startX;
         this.y = startY;
         this.SPEED = speed;
+        
+        try {
+            URL imgUrl = getClass().getResource(spritePath);
+            if (imgUrl != null) {
+                this.sprite = ImageIO.read(imgUrl);
+            } else {
+                System.err.println("Could not find sprite at: " + spritePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         this.loadout = new Weapons[]{
             new Sword(),
@@ -70,6 +86,23 @@ public class Player extends Stats {
             this.y += dirY * dashDistance;
         }
     }
+    
+        public void updateMovement(String execAnimation) {
+            switch (execAnimation) {
+                case "Idle":
+                    break;
+                case "Attack":
+                    break;
+                case "Walk":
+                    break;
+                case "Run":
+                    break;
+                case "Swing":
+                    break;
+                case "Fire":
+                    break;
+            }
+        }
 
     @Override public int getHP() { return this.HP; }
     @Override public void setHP(int hp) { this.HP = hp; }
