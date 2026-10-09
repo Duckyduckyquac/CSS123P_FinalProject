@@ -3,8 +3,10 @@ package css123p_finalproject.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 public class GameEnvironment {
-    private Player player;
+    private Player pOne;
+    private Player pTwo;
     private ArrayList<Mob> enemies;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Projectile> enemyProjectiles;
@@ -15,7 +17,8 @@ public class GameEnvironment {
     private boolean waitingForFloorPrompt = false;
 
     public GameEnvironment() {
-        this.player = new Player(150, 250, 100, 25, 10, 100, 9);
+        this.pOne = new Player();
+        this.pTwo = new Player();
         this.enemies = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
