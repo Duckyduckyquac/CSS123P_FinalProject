@@ -1,78 +1,82 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package css123p_finalproject.model;
 
-import css123p_finalproject.model.abstractions.Stats;
-
-/**
- *
- * @author Group 3
- */
-
-interface PlayerAttack {
-    void execute(Player player);
-}
-
+import css123p_finalproject.model.weapons.Sword;
+import css123p_finalproject.model.weapons.Gun;
+import css123p_finalproject.model.weapons.Staff;
+import java.util.ArrayList;
 
 public class Player extends Stats {
+    private double x, y;
+    private int width = 64;
+    private int height = 64;
 
-    public double HP;
-    public double ATK;
-    public double MAXHP;
-    public double BASEDMG;
-    public double DMGBOOST;
     public double SPEED;
-    public double DEF;
-    public double STAMINA;
-    
-    @Override
-    public void Stats(int HP, int ATK, int DEF, int STAMINA) {
-        this.setHP(HP);
-        this.setATK(ATK);
-        this.setDEF(DEF);
-        this.setSTAM(STAMINA);
+    public double MAXHP;
+
+    private Weapons[] loadout;
+    private int activeSlot = 0; // 0: Sword, 1: Gun, 2: Staff
+
+    public Player(int startX, int startY, int HP, int ATK, int DEF, int STAMINA, double speed) {
+        super(HP, ATK, DEF, STAMINA);
+        this.MAXHP = HP;
+        this.x = startX;
+        this.y = startY;
+        this.SPEED = speed;
+
+        this.loadout = new Weapons[]{
+            new Sword(),
+            new Gun(),
+            new Staff()
+        };
     }
 
-    @Override
-    public int getHP(){
-        return this.hp;
-    }
-    
-    @Override
-    public void setHP(int hp){
-        this.hp = hp;
-    }
-    
-    @Override
-    public int getDEF(){
-        return this.defense;
+    public int getX() { return (int) this.x; }
+    public int getY() { return (int) this.y; }
+    public int getWidth() { return this.width; }
+    public int getHeight() { return this.height; }
+
+    public void setX(double x) { this.x = x; }
+    public void setX(int x) { this.x = x; }
+    public void setY(double y) { this.y = y; }
+    public void setY(int y) { this.y = y; }
+
+    public void selectSlot(int slotIndex) {
+        if (slotIndex >= 0 && slotIndex < loadout.length) {
+            this.activeSlot = slotIndex;
+        }
     }
 
-    @Override
-    public void setDEF(int defense){
-        this.defense = defense;
+    public Weapons getEquippedWeapon() {
+        return loadout[activeSlot];
     }
 
-    @Override
-    public int getATK(){
-        return this.atk;
+    public void attack(int targetX, int targetY, ArrayList<Mob> enemies, ArrayList<Projectile> projectiles) {
+        getEquippedWeapon().use(this, targetX, targetY, enemies, projectiles);
     }
 
-    @Override
-    public void setATK(int atk){
-        this.atk = atk;
+    public void takeDamage(int amount) {
+        setHP(Math.max(0, getHP() - amount));
     }
-    
-    @Override
-    public int getStAM(){
-        return this.stamina;
+    public void dash(int dirX, int dirY) {
+        if (dirX == 0 && dirY == 0) dirX = 1; // Default to dashing right if stationary
+        double dashDistance = SPEED * 10;
+        
+        if (dirX != 0 && dirY != 0) {
+            double factor = 1.0 / Math.hypot(dirX, dirY);
+            this.x += dirX * factor * dashDistance;
+            this.y += dirY * factor * dashDistance;
+        } else {
+            this.x += dirX * dashDistance;
+            this.y += dirY * dashDistance;
+        }
     }
 
-    @Override
-    public void setSTAM(int stamina){
-        this.stamina = stamina;
-    }
-    
+    @Override public int getHP() { return this.HP; }
+    @Override public void setHP(int hp) { this.HP = hp; }
+    @Override public int getDEF() { return this.DEF; }
+    @Override public void setDEF(int defense) { this.DEF = defense; }
+    @Override public int getATK() { return this.ATK; }
+    @Override public void setATK(int atk) { this.ATK = atk; }
+    @Override public int getSTAM() { return this.STAMINA; }
+    @Override public void setSTAM(int stamina) { this.STAMINA = stamina; }
 }
