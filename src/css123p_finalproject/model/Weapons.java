@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Weapons {
     protected String name;
     protected int damage;
-    protected long attackInterval; // in milliseconds
+    protected long attackInterval;
     protected long lastAttackTime = 0;
 
     public Weapons(String name, int damage, long attackInterval) {
@@ -14,13 +14,8 @@ public abstract class Weapons {
         this.attackInterval = attackInterval;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
+    public String getName() { return name; }
+    public int getDamage() { return damage; }
 
     public boolean canAttack(long currentTime) {
         return (currentTime - lastAttackTime) >= attackInterval;
