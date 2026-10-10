@@ -3,6 +3,7 @@ package css123p_finalproject.model;
 import css123p_finalproject.model.weapons.Sword;
 import css123p_finalproject.model.weapons.Gun;
 import css123p_finalproject.model.weapons.Staff;
+import css123p_finalproject.model.Weapons;
 import java.util.ArrayList;
 
 public class Player extends Stats {
@@ -14,6 +15,9 @@ public class Player extends Stats {
     public double MAXHP;
 
     private Weapons[] loadout;
+    private Sword sword;
+    private Gun gun;
+    private Staff staff;
     private int activeSlot = 0;
     private long invincibilityEndTime = 0;
 
@@ -23,11 +27,12 @@ public class Player extends Stats {
         this.x = startX;
         this.y = startY;
         this.SPEED = speed;
+        
 
         this.loadout = new Weapons[]{
-            new Sword(),
-            new Gun(),
-            new Staff()
+            this.sword = new Sword(),
+            this.gun = new Gun(),
+            this.staff = new Staff()
         };
     }
 
