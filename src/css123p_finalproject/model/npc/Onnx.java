@@ -18,14 +18,12 @@ public class Onnx {
              OrtSession.SessionOptions options = new OrtSession.SessionOptions();
              OrtSession session = env.createSession("path/to/model.onnx", options)) {
             
-            // 2. Prepare inputs (e.g., using a flat array and shape specifications)
             float[] inputData = new float[]{1.0f, 2.0f, 3.0f, 4.0f};
             long[] shape = new long[]{1, 4};
             
             try (OnnxTensor inputTensor = OnnxTensor.createTensor(env, java.nio.FloatBuffer.wrap(inputData), shape)) {
                 Map<String, OnnxTensor> inputs = Collections.singletonMap("input_name", inputTensor);
-                
-                // 3. Execute inference
+
                 try (OrtSession.Result results = session.run(inputs)) {
                     // 4. Extract output values safely
                     OnnxValue outputValue = results.get(0);
@@ -34,5 +32,9 @@ public class Onnx {
                 }
             }
         }
+    }
+
+    public float TokenizeInput(String UserInput) {
+        
     }
 }
