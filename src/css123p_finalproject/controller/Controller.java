@@ -11,35 +11,33 @@ public class Controller {
         this.environment = environment;
     }
 
-   public void processInput(EventHandling input) {
+    public void processInput(EventHandling input) {
         Player p = environment.getPlayer();
 
-        if (input.requestedSlot != -1) {
-            p.selectSlot(input.requestedSlot);
-            input.requestedSlot = -1;
-        }
-        
-        if (input.dashRequested) {
-            p.dash(input.lastDirX, input.lastDirY);
-            input.dashRequested = false;
-        }
+        if (p.getHP() > 0) {
+            if (input.requestedSlot != -1) {
+                p.selectSlot(input.requestedSlot);
+                input.requestedSlot = -1;
+            }
 
-        if (input.up) p.setY(p.getY() - p.SPEED);
-        if (input.down) p.setY(p.getY() + p.SPEED);
-        if (input.left) p.setX(p.getX() - p.SPEED);
-        if (input.right) p.setX(p.getX() + p.SPEED);
-    }
-    public void togglePause() {
-        environment.togglePause();
-    }
-    
-    public boolean isPaused() {
-        return environment.isPaused();
+            if (input.dashRequested) {
+                p.dash(input.lastDirX, input.lastDirY);
+                input.dashRequested = false;
+            }
+
+            if (input.up) p.setY(p.getY() - p.SPEED);
+            if (input.down) p.setY(p.getY() + p.SPEED);
+            if (input.left) p.setX(p.getX() - p.SPEED);
+            if (input.right) p.setX(p.getX() + p.SPEED);
+        }
     }
 
     public void handleAttack(int targetX, int targetY) {
-        if (!environment.isGameWon()) {
-            environment.getPlayer().attack(targetX, targetY, environment.getEnemies(), environment.getProjectiles());
+        if (!environment.isTitleScreen() && !environment.isGameWon() && !environment.isPaused()) {
+            if (environment.getPlayer().getHP() > 0) {
+                // SlashEffects argument is completely removed here
+                environment.getPlayer().attack(targetX, targetY, environment.getEnemies(), environment.getProjectiles());
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Skeleton extends Mob {
     private long lastShotTime = 0;
-    private long shootInterval = 2500; // 2.5 seconds
+    private long shootInterval = 2500;
 
     public Skeleton(int startX, int startY, double speed, int HP, int ATK, int DEF, int STAMINA) {
         super(startX, startY, speed, HP, ATK, DEF, STAMINA);
@@ -15,14 +15,17 @@ public class Skeleton extends Mob {
     public void updateAI(Player player, ArrayList<Mob> allMobs, ArrayList<Projectile> enemyProjectiles) {
         if (!isAlive()) return;
 
-        // Slower movement toward player
+        double oldX = this.x;
+        double oldY = this.y;
+
+        // 1. Chase Player
         if (this.x > player.getX() + 5) moveLeft();
         else if (this.x < player.getX() - 5) moveRight();
 
         if (this.y > player.getY() + 5) moveUp();
         else if (this.y < player.getY() - 5) moveDown();
 
-        // Prevent overlap
+        // 2. Prevent overlapping
         for (Mob other : allMobs) {
             if (other == this || !other.isAlive()) continue;
             double dx = this.x - other.x;
@@ -37,10 +40,22 @@ public class Skeleton extends Mob {
             }
         }
 
-        // Shoot spell at 50% player speed
+        // 3. Update Animation States based on movement delta
+        this.isMoving = (this.x != oldX || this.y != oldY);
+        if (this.isMoving) {
+            if (Math.abs(this.x - oldX) > Math.abs(this.y - oldY)) {
+                this.facingX = (this.x > oldX) ? 1 : -1;
+                this.facingY = 0;
+            } else {
+                this.facingX = 0;
+                this.facingY = (this.y > oldY) ? 1 : -1;
+            }
+        }
+
+        // 4. Shoot Magic Spell
         long now = System.currentTimeMillis();
         if (now - lastShotTime >= shootInterval) {
-            int projSpeed = (int) Math.max(2, player.SPEED * 0.5);
+            int projSpeed = (int) Math.max(2, player.SPEED * 0.5); 
             enemyProjectiles.add(new Projectile(
                 this.x + (this.width / 2), this.y + (this.height / 2),
                 player.getX() + (player.getWidth() / 2), player.getY() + (player.getHeight() / 2),

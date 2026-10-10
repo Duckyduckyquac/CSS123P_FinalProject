@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Staff extends Weapons {
     public Staff() {
-        super("STAFF (Magic)", 80, 2000); // 80 dmg, 2.0s
+        super("STAFF (Magic)", 80, 2000); 
     }
 
     @Override
