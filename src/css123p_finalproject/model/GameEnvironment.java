@@ -10,12 +10,13 @@ public class GameEnvironment {
     private ArrayList<Projectile> enemyProjectiles;
     private int currentFloor = 1;
     private boolean gameWon = false;
+    private boolean playerDead = false;
     private boolean paused = false;
     private boolean titleScreen = true;
     private boolean waitingForFloorPrompt = false;
 
     public GameEnvironment() {
-        this.player = new Player(150, 250, 100, 25, 10, 100, 9);
+        this.player = new Player(150, 250, 1, 25, 10, 100, 9);
         this.enemies = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
@@ -39,6 +40,7 @@ public class GameEnvironment {
 
     public void restartGame() {
         this.gameWon = false;
+        playerDead = false;
         this.paused = false;
         this.waitingForFloorPrompt = false;
         this.currentFloor = 1;
@@ -67,7 +69,7 @@ public class GameEnvironment {
     }
 
     public void updateWorld() {
-        if (titleScreen || gameWon || paused || waitingForFloorPrompt) return;
+        if (titleScreen || gameWon || paused || waitingForFloorPrompt || playerDead) return;
 
         long currentTime = System.currentTimeMillis();
         boolean floorCleared = true;
@@ -81,6 +83,9 @@ public class GameEnvironment {
             double distance = Math.hypot(mob.getX() - player.getX(), mob.getY() - player.getY());
             if (distance <= player.getWidth()) {
                 if (currentTime - mob.lastAttackTime >= 1000) {
+                    if (player.getHP() == 1)  {
+                        playerDead = true;
+                    }
                     player.takeDamage(1);
                     mob.lastAttackTime = currentTime;
                 }
@@ -134,5 +139,6 @@ public class GameEnvironment {
     public ArrayList<Projectile> getProjectiles() { return projectiles; }
     public ArrayList<Projectile> getEnemyProjectiles() { return enemyProjectiles; }
     public int getCurrentFloor() { return currentFloor; }
+    public boolean cantPlayAnymore() { return playerDead;}
     public boolean isGameWon() { return gameWon; }
 }

@@ -168,6 +168,7 @@ class GamePanel extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+    
 
         if (environment.isTitleScreen()) {
             g2d.setColor(new Color(20, 20, 30));
@@ -190,6 +191,14 @@ class GamePanel extends JPanel implements ActionListener {
         Player p = environment.getPlayer();
         g2d.setColor(Color.WHITE);
         g2d.drawString("FLOOR " + environment.getCurrentFloor() + " | Weapon: " + p.getEquippedWeapon().getName(), 20, 20);
+        
+       if (environment.cantPlayAnymore()) {
+            g2d.setColor(new Color(20, 20, 30));
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.setColor(Color.RED);
+            g2d.setFont(new Font("Arial", Font.BOLD, 35));
+            g2d.drawString("YOU DIED!", p.getX(), p.getY());
+        }
 
         if (p.getHP() > 0) {
             if (playerSprite != null) {
@@ -207,7 +216,8 @@ class GamePanel extends JPanel implements ActionListener {
             }
             g2d.setColor(Color.WHITE);
             g2d.drawString("HP: " + p.getHP() + "/" + (int) p.MAXHP, p.getX(), p.getY() - 10);
-        }
+        } 
+        
 
         for (Mob mob : environment.getEnemies()) {
             if (mob.isAlive()) {

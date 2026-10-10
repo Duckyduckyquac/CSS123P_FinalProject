@@ -21,6 +21,9 @@ public class Controller {
             }
 
             if (input.dashRequested) {
+                if (p.getSTAM() < 12) {
+                    input.dashRequested = false;
+                }
                 p.dash(input.lastDirX, input.lastDirY);
                 input.dashRequested = false;
             }
