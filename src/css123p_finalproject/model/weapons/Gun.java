@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Gun extends Weapons {
     public Gun() {
-        super("GUN (Ranged)", 30, 300); // 30 dmg, 0.3s
+        super("GUN (Ranged)", 30, 300);
     }
 
     @Override

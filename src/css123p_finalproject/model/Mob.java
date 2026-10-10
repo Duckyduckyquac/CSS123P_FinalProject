@@ -9,6 +9,11 @@ public abstract class Mob extends Stats {
     protected double speed;
     public long lastAttackTime = 0;
 
+    // Animation states
+    protected boolean isMoving = false;
+    protected int facingX = 0;
+    protected int facingY = 1; // Default face down (Row 0)
+
     public Mob(int startX, int startY, double speed, int HP, int ATK, int DEF, int STAMINA) {
         super(HP, ATK, DEF, STAMINA);
         this.x = startX;
@@ -22,6 +27,10 @@ public abstract class Mob extends Stats {
     public int getHeight() { return this.height; }
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
+
+    public boolean isMoving() { return isMoving; }
+    public int getFacingX() { return facingX; }
+    public int getFacingY() { return facingY; }
 
     public void moveUp() { this.y -= this.speed; }
     public void moveDown() { this.y += this.speed; }
@@ -41,7 +50,6 @@ public abstract class Mob extends Stats {
         return getHP() > 0;
     }
 
-    // Abstract AI contract for specific enemy types
     public abstract void updateAI(Player player, ArrayList<Mob> allMobs, ArrayList<Projectile> enemyProjectiles);
 
     @Override public int getHP(){ return this.HP; }
